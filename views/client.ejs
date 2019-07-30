@@ -1,0 +1,70 @@
+<html>
+	<head>
+		<title>RTA Client Emulator</title>
+		<link rel="stylesheet" type="text/css" href="/css/styles.css">
+		<script language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+		<script language="javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<!--script language="javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script-->
+		<!--script language="javascript" src="/js/canvas2image.js"></script-->
+		<script language="javascript" src="http://kpi.opratel.com:1111/js/ext/dom-to-image.js"></script>
+		<script language="javascript" src="/js/iframe2image.js"></script>
+
+		<script>
+			var socket = io();
+			socket.on('connect', function(){
+				console.log('conectado');
+			});
+			socket.on('disconnect', function(){});
+
+			$(document).ready(function(){
+				isMobile = false;
+                if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+                    isMobile = true;
+                }
+                var data = { isMobile: isMobile };
+                socket.emit('init', true);
+                socket.on('process', function(data){
+                	console.log(data);
+                	$('#localScreen').attr('src', data.loadUrl);
+                	setTimeout(capture, 5000);
+                	//capture();
+                });
+            });
+
+			function capture2(){
+				iframe2image(document.getElementById('localScreen'), function(err, img){
+					console.log(img);
+				});
+			}
+
+            function capture(){
+            	console.log('Starting capture...');
+            	var node = document.getElementById('localScreen');
+            	//domtoimage.toPng(node, { quality: 0.9 }).then(function (dataUrl) {
+            	domtoimage.toJpeg(node, { quality: 0.9 }).then(function (dataUrl) {
+            	//domtoimage.toSvg(node).then(function (dataUrl) {
+            		console.log('Capture ok, sending image to server');
+            		data = {};
+					data.screenCapture = dataUrl;
+					data.attributes = { width:0, height: 0 };
+					data.html = $('#localScreen').get(0).html();
+
+					//$('#render').attr('src', data.screenCapture);
+					$('#remoteScreen').html(data.html);
+					socket.emit('processResponse', data);
+			    })
+			    .catch(function (error) {
+					console.error('oops, something went wrong!', error);
+			    });
+            }
+		</script>
+	</head>
+	<body>
+		<div class="workspace">
+			<iframe id="localScreen" border=0></iframe>
+			<div class="remoteScreen">
+				<img id="render"/>
+			</div>
+		</div>
+	</body>
+</html>

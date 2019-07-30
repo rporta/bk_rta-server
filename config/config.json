@@ -1,0 +1,17 @@
+{
+	"mssql": {
+		"server": "zeus",
+		"database": "opratelcenter",
+		"user": "sa",
+		"password": "millonarios",
+    	"pool": {
+        	"min": 1,
+        	"max": 50,
+        	"idleTimeoutMillis": 30000
+    	}
+	},
+	"server": {
+		"serviceName": "RTA Server",
+		"port": "10001"
+	}
+}

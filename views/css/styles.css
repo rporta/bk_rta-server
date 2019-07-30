@@ -1,0 +1,53 @@
+.workspace{
+	width: 100%;
+	height: 90%;
+}
+
+.remoteScreen {
+	border: 1px dashed #000;
+	width: 45%;
+	height: 70%;
+	margin-top: 10px;
+	margin-left: 15px;
+	box-shadow: 0px 2px 30px -4px #000;
+	float: left;
+	padding: 5px;
+}
+
+.remoteScreen img {
+	width: 300px;
+	height: 480px;
+}
+
+.remoteDocumentButtons {
+	border: 1px dashed #000;
+	width: 45%;
+	height: 70%;
+	margin-top: 10px;
+	margin-left: 15px;
+	box-shadow: 0px 2px 30px -4px #000;
+	float: left;
+	padding: 5px;
+}
+
+.console {
+    border: 1px dashed #000;
+	width: 93%;
+	height: 30%;
+	margin-top: 10px;
+	margin-left: 15px;
+	box-shadow: 0px 2px 30px -4px #000;
+	float: left;
+	padding: 5px;
+}
+
+#localScreen {
+	border: 1px dashed #000;
+	width: 300px;
+	height: 480px;
+	margin-top: 10px;
+	margin-left: 15px;
+	box-shadow: 0px 2px 30px -4px #000;
+	float: left;
+	padding: 5px;
+}

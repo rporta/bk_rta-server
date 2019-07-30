@@ -1,0 +1,59 @@
+<html>
+	<head>
+		<title>RTA Server</title>
+		<link rel="stylesheet" type="text/css" href="/css/styles.css">
+		<script language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+		<script language="javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+		<script>
+			var socket = io();
+			socket.on('connect', function(){
+				console.log('conectado');
+			});
+			socket.on('disconnect', function(){});
+
+			$(document).ready(function(){
+				isMobile = false;
+                if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+                    isMobile = true;
+                }
+                var data = { isMobile: isMobile };
+                socket.emit('panel', true);
+                socket.on('render', function(data){
+					console.log(data);
+					$('#render').attr('src', data.screenCapture);
+					//$('#remoteScreen').html(data.html);
+				});
+
+				$('#render').click(function(e){
+					var parentContainerTop = $('#render').position().top;
+					var parentContainerLeft = $('#render').position().left;
+					var y = e.clientY - parentContainerTop;
+					var x = e.clientX - parentContainerLeft;
+					var mouseEvent = { 
+						click: { 
+							x: x,
+							y: y
+						}
+					}
+					console.log('MouseEvent: ' + JSON.stringify(mouseEvent));
+					socket.emit('processEvent', mouseEvent);
+				});
+            });
+
+		</script>
+	</head>
+	<body>
+		<div class="workspace">
+			<div class="remoteScreen">
+				<img id="render" border="0"/>
+			</div>
+			<div class="remoteDocumentButtons">
+				buttons
+			</div>
+			<div class="console">
+				log
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,9 @@
+2019-05-24 15:07:18 - info: Web Service started on port 10001
+2019-05-24 15:18:31 - error: 404: Page not Found | Query string: {}
+2019-05-24 15:19:22 - error: 404: Page not Found | Query string: {}
+2019-05-24 15:24:41 - error: 404: Page not Found | Query string: {}
+2019-05-24 15:29:38 - error: 404: Page not Found | Query string: {}
+2019-05-24 15:44:15 - error: 404: Page not Found | Query string: {}
+2019-05-24 18:04:00 - error: Server shutdown unexpectedly
+2019-05-24 18:04:03 - info: Web Service started on port 10001
+2019-05-27 12:55:48 - error: Server shutdown unexpectedly
